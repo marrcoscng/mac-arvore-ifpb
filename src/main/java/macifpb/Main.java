@@ -10,10 +10,21 @@ public class Main {
         Cliente cliente = new Cliente("Marcos Silva", "", "");
         Conta conta = new Conta("12345-6", 1000.00);
 
-        // Construção da BST com as opções do menu
+        // Construção da BST
         BinarySearchTree menuTree = new BinarySearchTree();
 
-        // [1] Sacar Dinheiro
+        /*
+         * ORDEM DE INSERÇÃO BALANCEADA:
+         * Inserir o 3 primeiro define a RAIZ PRINCIPAL no centro do menu.
+         * A distribuição abaixo gera uma árvore balanceada com bifurcações à esquerda e direita.
+         */
+
+        // [3] RAIZ PRINCIPAL - Ver Extrato
+        menuTree.inserir(3, "Ver Extrato", (sc, c, cl) -> {
+            c.exibirExtrato();
+        });
+
+        // [1] Filha ESQUERDA da Raiz 3 - Sacar Dinheiro
         menuTree.inserir(1, "Sacar Dinheiro", (sc, c, cl) -> {
             System.out.println("\n--- OPERAÇÃO DE SAQUE ---");
             System.out.print("Informe seu CPF: ");
@@ -31,7 +42,15 @@ public class Main {
             }
         });
 
-        // [2] Depositar Dinheiro
+        // [0] Sair
+        menuTree.inserir(0, "Sair", (sc, c, cl) -> {
+            System.out.println("\nObrigado por utilizar nossos serviços bancários. Até logo!");
+
+            // Exibe o desenho visual da árvore na memória ao encerrar
+            menuTree.desenharArvore();
+        });
+
+        // [2] Filha DIREITA do Nó 1 - Depositar Dinheiro
         menuTree.inserir(2, "Depositar Dinheiro", (sc, c, cl) -> {
             System.out.println("\n--- OPERAÇÃO DE DEPÓSITO ---");
             System.out.print("Informe o número da conta destino: ");
@@ -47,17 +66,7 @@ public class Main {
             }
         });
 
-        // [3] Ver Extrato
-        menuTree.inserir(3, "Ver Extrato", (sc, c, cl) -> {
-            c.exibirExtrato();
-        });
-
-        // [4] Consultar Saldo
-        menuTree.inserir(4, "Consultar Saldo", (sc, c, cl) -> {
-            System.out.printf("\n--- SALDO ATUAL --- \nR$ %.2f\n", c.getSaldo());
-        });
-
-        // [5] Solicitar Ajuda
+        // [5] Filha DIREITA da Raiz 3 - Solicitar Ajuda
         menuTree.inserir(5, "Solicitar Ajuda", (sc, c, cl) -> {
             sc.nextLine(); // Limpa o buffer do scanner
             System.out.println("\n--- SUPORTE AO CLIENTE ---");
@@ -67,18 +76,19 @@ public class Main {
             System.out.println("Em breve entraremos em contato!");
         });
 
-        // [0] Sair
-        menuTree.inserir(0, "Sair", (sc, c, cl) -> {
-            System.out.println("\nObrigado por utilizar nossos serviços bancários. Até logo!");
+        // [4] Filha ESQUERDA do Nó 5 - Consultar Saldo
+        menuTree.inserir(4, "Consultar Saldo", (sc, c, cl) -> {
+            System.out.printf("\n--- SALDO ATUAL --- \nR$ %.2f\n", c.getSaldo());
         });
 
-        // Loop principal do menu
+        // Loop principal de navegação pelo menu
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("\n==================================");
             System.out.println("        BANCO DIGITAL - MENU       ");
             System.out.println("==================================");
 
+            // A travessia Em-Ordem (In-Order) continua exibindo na sequência 0, 1, 2, 3, 4, 5
             menuTree.exibirMenuEmOrdem();
 
             System.out.print("\nDigite o número da opção desejada: ");

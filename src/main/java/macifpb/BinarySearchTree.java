@@ -45,4 +45,36 @@ public class BinarySearchTree {
             exibirEmOrdemRecursivo(node.direita);
         }
     }
+
+    // Método público para iniciar a impressão gráfica da árvore
+    public void desenharArvore() {
+        System.out.println("\n--- ESTRUTURA VISUAL DA ÁRVORE (BST) ---");
+        desenharArvoreRecursivo(raiz, "", true);
+        System.out.println("----------------------------------------");
+    }
+
+    // Algoritmo recursivo para desenhar as ramificações
+    private void desenharArvoreRecursivo(Node no, String prefixo, boolean ehUltimo) {
+        if (no != null) {
+            System.out.print(prefixo);
+            System.out.print(ehUltimo ? "└── " : "├── ");
+            System.out.println("[" + no.id + "] " + no.descricao);
+
+            // Monta o caractere de ramificação dependendo da posição do nó pai
+            String novoPrefixo = prefixo + (ehUltimo ? "    " : "│   ");
+
+            // Define se há subárvores
+            boolean temEsquerda = (no.esquerda != null);
+            boolean temDireita = (no.direita != null);
+
+            if (temEsquerda || temDireita) {
+                if (temEsquerda) {
+                    desenharArvoreRecursivo(no.esquerda, novoPrefixo, !temDireita);
+                }
+                if (temDireita) {
+                    desenharArvoreRecursivo(no.direita, novoPrefixo, true);
+                }
+            }
+        }
+    }
 }
