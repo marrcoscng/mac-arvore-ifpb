@@ -64,7 +64,9 @@ public class Main {
             } else {
                 System.out.println("Erro: Número de conta não encontrado no sistema.");
             }
-        });
+        }
+
+        );
 
         // [5] Filha DIREITA da Raiz 3 - Solicitar Ajuda
         menuTree.inserir(5, "Solicitar Ajuda", (sc, c, cl) -> {

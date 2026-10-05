@@ -11,10 +11,6 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getNome() { return nome; }
-    public String getCpf() { return cpf; }
-    public String getTelefone() { return telefone; }
-
     public void setCpf(String cpf) { this.cpf = cpf; }
     public void setTelefone(String telefone) { this.telefone = telefone; }
 }
